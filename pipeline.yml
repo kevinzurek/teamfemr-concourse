@@ -21,39 +21,39 @@ resources:
     versioned_file: femr.zip
 
 jobs:
-- name: job-build
+- name: build
   public: true
   plan:
   - get: femr-app
     trigger: true
   - task: femr-build
     file: femr-app/ci/femr/task_run_build.yml
-- name: job-test
+- name: test
   public: true
   plan:
   - get: femr-app
-    passed: [job-build]
+    passed: [build]
     trigger: true
   - task: femr-test
     file: femr-app/ci/femr/task_run_tests.yml
-- name: job-package
+- name: package
   public: true
   plan:
   - get: femr-app
-    passed: [job-test]
+    passed: [test]
     trigger: true
   - get: resource-config
   - task: femr-package
     file: femr-app/ci/femr/task_run_package.yml
   - put: resource-config
     params: {file: femr-dist/femr.zip}
-- name: job-deploy
+- name: deploy
   public: true
   plan:
   - get: resource-config
-    passed: [job-package]
+    passed: [package]
   - get: femr-app
-    passed: [job-package]
+    passed: [package]
     trigger: true
   - task: femr-deploy
     file: femr-app/ci/femr/task_run_deploy.yml
