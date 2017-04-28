@@ -2,4 +2,4 @@
 
 set -ex
 
-cd resource-femr-app && sbt clean compile
+cd femr-app && sbt clean compile

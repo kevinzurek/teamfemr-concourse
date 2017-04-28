@@ -7,7 +7,7 @@ image_resource:
 
 inputs:
 - name: resource-config
-- name: resource-femr-app
+- name: femr-app
 
 run:
-  path: resource-femr-app/ci/femr/task_run_deploy.sh
+  path: femr-app/ci/femr/task_run_deploy.sh

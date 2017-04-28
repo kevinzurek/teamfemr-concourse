@@ -6,7 +6,7 @@ image_resource:
   source: {repository: kevinzurek/femr, tag: "latest"}
 
 inputs:
-- name: resource-femr-app
+- name: femr-app
 
 run:
-  path: resource-femr-app/ci/femr/task_run_tests.sh
+  path: femr-app/ci/femr/task_run_tests.sh

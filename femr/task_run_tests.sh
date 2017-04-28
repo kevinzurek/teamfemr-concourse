@@ -2,4 +2,4 @@
 
 set -ex
 
-cd resource-femr-app && sbt test
+cd femr-app && sbt test
