@@ -2,4 +2,4 @@
 
 set -ex
 
-echo "hey"
+cd git-teamfemr2-app && composer install
