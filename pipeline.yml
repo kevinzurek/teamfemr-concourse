@@ -27,19 +27,16 @@ resources:
     versioned_file: femr.zip
 
 jobs:
-- name: build-TeamfEMR
+- name: deploy-TeamfEMR
   public: true
   plan:
   - get: git-concourse-app
   - get: git-teamfemr2-app
     trigger: true
-  - task: compose
-    file: git-concourse-app/teamfemr2/task_compose.yml
-  - task: npm
-    file: git-concourse-app/teamfemr2/task_npm.yml 
+  - task: teamfemr2-deploy
+    file: git-concourse-app/teamfemr2/task_deploy.yml
 
-
-- name: build-fEMR
+- name: build-test-fEMR
   public: true
   plan:
   - get: git-concourse-app
@@ -47,21 +44,23 @@ jobs:
     trigger: true
   - task: femr-build
     file: git-concourse-app/femr/task_run_build.yml
-- name: test-fEMR
-  public: true
-  plan:
-  - get: git-concourse-app
-  - get: git-femr-app
-    passed: [build-fEMR]
-    trigger: true
   - task: femr-test
     file: git-concourse-app/femr/task_run_tests.yml
+#- name: test-fEMR
+#  public: true
+#  plan:
+#  - get: git-concourse-app
+#  - get: git-femr-app
+#    passed: [build-fEMR]
+#    trigger: true
+#  - task: femr-test
+#    file: git-concourse-app/femr/task_run_tests.yml
 - name: package-fEMR
   public: true
   plan:
   - get: git-concourse-app
   - get: git-femr-app
-    passed: [test-fEMR]
+    passed: [build-test-fEMR]
     trigger: true
   - get: s3-config
   - task: femr-package

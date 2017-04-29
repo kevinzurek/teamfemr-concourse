@@ -2,4 +2,4 @@
 
 set -ex
 
-cd git-femr-app && sbt test
+cd femr-app-build && sbt test

@@ -9,5 +9,8 @@ inputs:
 - name: git-concourse-app
 - name: git-femr-app
 
+outputs:
+- name: femr-app-build
+
 run:
   path: git-concourse-app/femr/task_run_build.sh
