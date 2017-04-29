@@ -3,7 +3,7 @@ platform: linux
 
 image_resource:
   type: docker-image
-  source: {repository: laradock/workspace, tag: "latest"}
+  source: {repository: kevinzurek/femr, tag: "latest"}
 
 inputs:
 - name: git-teamfemr2-app
@@ -14,4 +14,4 @@ outputs:
 
 run:
   #path: git-concourse-app/teamfemr2/task_compose.sh
-  path: ls git-teamfemr2-app
+  path: test.sh /bin/sh
