@@ -1,6 +1,6 @@
 ---
 resources:
-- name: teamfemr2-app
+- name: git-teamfemr2-app
   type: git
   source:
     uri: https://github.com/kevinzurek/teamfemr2.git
@@ -12,6 +12,12 @@ resources:
     uri: https://github.com/femr/femr.git
     branch: master
 
+- name: git-concourse-app
+  type: git
+  source:
+    uri: https://github.com/kevinzurek/teamfemr-concourse
+    branch: master
+
 - name: s3-config
   type: s3
   source:
@@ -21,42 +27,53 @@ resources:
     versioned_file: femr.zip
 
 jobs:
-- name: build
+- name: build-TeamfEMR
+  public: true
+  plan:
+  - get: git-teamfemr2-app
+    trigger: true
+  - task: compose
+    file: git-concourse-app/teamfemr2/task_compose.yml
+  - task: npm
+    file: git-concourse-app/teamfemr2/task_npm.yml 
+
+
+- name: build-fEMR
   public: true
   plan:
   - get: git-femr-app
     trigger: true
   - task: femr-build
-    file: git-femr-app/ci/femr/task_run_build.yml
-- name: test
+    file: git-concourse-app/femr/task_run_build.yml
+- name: test-fEMR
   public: true
   plan:
   - get: git-femr-app
-    passed: [build]
+    passed: [build-fEMR]
     trigger: true
   - task: femr-test
-    file: git-femr-app/ci/femr/task_run_tests.yml
-- name: package
+    file: git-concourse-app/femr/task_run_tests.yml
+- name: package-fEMR
   public: true
   plan:
   - get: git-femr-app
-    passed: [test]
+    passed: [test-FEMR]
     trigger: true
   - get: s3-config
   - task: femr-package
-    file: git-femr-app/ci/femr/task_run_package.yml
+    file: git-concourse-app/femr/task_run_package.yml
   - put: s3-config
     params: {file: femr-dist/femr.zip}
-- name: deploy
+- name: deploy-FEMR
   public: true
   plan:
   - get: s3-config
-    passed: [package]
+    passed: [package-fEMR]
   - get: git-femr-app
-    passed: [package]
+    passed: [package-fEMR]
     trigger: true
   - task: femr-deploy
-    file: git-femr-app/ci/femr/task_run_deploy.yml
+    file: git-concourse-app/femr/task_run_deploy.yml
     params:
       AWS_ACCESS_KEY_ID: {{aws_access_key_id}}
       AWS_SECRET_ACCESS_KEY: {{aws_secret_access_key}}

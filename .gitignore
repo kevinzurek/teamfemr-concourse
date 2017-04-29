@@ -1,2 +1,4 @@
 #concourse
 credentials.yml
+
+*.swp

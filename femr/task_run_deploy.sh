@@ -8,7 +8,7 @@ OLD_INSTANCE_ID=$(aws ec2 describe-instances --filters Name=tag:ID,Values=fEMR-d
 
 aws ec2 create-tags --resources $OLD_INSTANCE_ID --tags Key=ID,Value=fEMR-demo-old
 
-aws ec2 run-instances --image-id ami-ca6cf5dc --count 1 --instance-type t2.small --key-name concourse_id_rsa --security-group-ids sg-38b54e44 --subnet-id subnet-1b91f540 --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value='$COMMIT'},{Key=ID,Value=fEMR-demo}]' --user-data file://git-femr-app/ci/femr/deploy_server_config.sh > output.txt
+aws ec2 run-instances --image-id ami-ca6cf5dc --count 1 --instance-type t2.small --key-name concourse_id_rsa --security-group-ids sg-38b54e44 --subnet-id subnet-1b91f540 --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value='$COMMIT'},{Key=ID,Value=fEMR-demo}]' --user-data file://git-concourse-app/femr/deploy_server_config.sh > output.txt
 
 NEW_INSTANCE_ID=$(cat output.txt | jq -r .Instances[].InstanceId)
 
