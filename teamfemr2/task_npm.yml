@@ -6,8 +6,7 @@ image_resource:
   source: {repository: node, tag: "latest"}
 
 inputs:
-- name: git-teamfemr2-app
-#- name: teamfemr2-build-folder
+- name: teamfemr2-build-folder
 - name: git-concourse-app
 
 run:

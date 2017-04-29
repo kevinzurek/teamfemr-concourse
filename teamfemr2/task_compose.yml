@@ -7,8 +7,10 @@ image_resource:
 
 inputs:
 - name: git-teamfemr2-app
-#- name: teamfemr2-build-folder
 - name: git-concourse-app
+
+outputs:
+- name: teamfemr2-build-folder
 
 run:
   path: git-concourse-app/teamfemr2/task_compose.sh
