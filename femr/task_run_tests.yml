@@ -7,6 +7,7 @@ image_resource:
 
 inputs:
 - name: git-concourse-app
+- name: git-femr-app
 
 run:
   path: git-concourse-app/femr/task_run_tests.sh
