@@ -30,6 +30,7 @@ jobs:
 - name: build-TeamfEMR
   public: true
   plan:
+  - get: git-concourse-app
   - get: git-teamfemr2-app
     trigger: true
   - task: compose
@@ -41,6 +42,7 @@ jobs:
 - name: build-fEMR
   public: true
   plan:
+  - get: git-concourse-app
   - get: git-femr-app
     trigger: true
   - task: femr-build
@@ -48,6 +50,7 @@ jobs:
 - name: test-fEMR
   public: true
   plan:
+  - get: git-concourse-app
   - get: git-femr-app
     passed: [build-fEMR]
     trigger: true
@@ -56,8 +59,9 @@ jobs:
 - name: package-fEMR
   public: true
   plan:
+  - get: git-concourse-app
   - get: git-femr-app
-    passed: [test-FEMR]
+    passed: [test-fEMR]
     trigger: true
   - get: s3-config
   - task: femr-package
@@ -67,6 +71,7 @@ jobs:
 - name: deploy-FEMR
   public: true
   plan:
+  - get: git-concourse-app
   - get: s3-config
     passed: [package-fEMR]
   - get: git-femr-app
