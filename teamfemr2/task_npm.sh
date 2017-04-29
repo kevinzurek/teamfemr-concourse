@@ -2,5 +2,4 @@
 
 set -ex
 
-
-cd teamfemr2-build-folder && npm install
+cd git-teamfemr2-app && npm install

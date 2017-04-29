@@ -33,8 +33,8 @@ jobs:
   - get: git-concourse-app
   - get: git-teamfemr2-app
     trigger: true
-  - task: compose
-    file: git-concourse-app/teamfemr2/task_compose.yml
+  #- task: compose
+   # file: git-concourse-app/teamfemr2/task_compose.yml
   - task: npm
     file: git-concourse-app/teamfemr2/task_npm.yml 
 
