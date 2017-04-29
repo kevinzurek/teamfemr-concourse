@@ -2,4 +2,4 @@
 
 set -ex
 
-cd femr-app && sbt dist && mv target/universal/femr-*.zip ../femr-dist/femr.zip
+cd git-femr-app && sbt dist && mv target/universal/femr-*.zip ../femr-dist/femr.zip

@@ -9,4 +9,4 @@ inputs:
 - name: teamfemr2-app
 
 run:
-  path: femr-app/ci/femr/task_run_build.sh
+  path: git-femr-app/ci/femr/task_run_build.sh

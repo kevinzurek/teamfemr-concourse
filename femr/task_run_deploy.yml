@@ -6,8 +6,8 @@ image_resource:
   source: {repository: kevinzurek/femr, tag: "latest"}
 
 inputs:
-- name: resource-config
-- name: femr-app
+- name: s3-config
+- name: git-femr-app
 
 run:
-  path: femr-app/ci/femr/task_run_deploy.sh
+  path: git-femr-app/ci/femr/task_run_deploy.sh

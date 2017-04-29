@@ -6,57 +6,57 @@ resources:
     uri: https://github.com/kevinzurek/teamfemr2.git
     branch: master
 
-- name: femr-app
+- name: git-femr-app
   type: git
   source:
     uri: https://github.com/femr/femr.git
     branch: master
 
-- name: resource-config
+- name: s3-config
   type: s3
   source:
     access_key_id: {{aws_access_key_id}}
     secret_access_key: {{aws_secret_access_key}}
-    bucket: femr-app
+    bucket: git-femr-app
     versioned_file: femr.zip
 
 jobs:
 - name: build
   public: true
   plan:
-  - get: femr-app
+  - get: git-femr-app
     trigger: true
   - task: femr-build
-    file: femr-app/ci/femr/task_run_build.yml
+    file: git-femr-app/ci/femr/task_run_build.yml
 - name: test
   public: true
   plan:
-  - get: femr-app
+  - get: git-femr-app
     passed: [build]
     trigger: true
   - task: femr-test
-    file: femr-app/ci/femr/task_run_tests.yml
+    file: git-femr-app/ci/femr/task_run_tests.yml
 - name: package
   public: true
   plan:
-  - get: femr-app
+  - get: git-femr-app
     passed: [test]
     trigger: true
-  - get: resource-config
+  - get: s3-config
   - task: femr-package
-    file: femr-app/ci/femr/task_run_package.yml
-  - put: resource-config
+    file: git-femr-app/ci/femr/task_run_package.yml
+  - put: s3-config
     params: {file: femr-dist/femr.zip}
 - name: deploy
   public: true
   plan:
-  - get: resource-config
+  - get: s3-config
     passed: [package]
-  - get: femr-app
+  - get: git-femr-app
     passed: [package]
     trigger: true
   - task: femr-deploy
-    file: femr-app/ci/femr/task_run_deploy.yml
+    file: git-femr-app/ci/femr/task_run_deploy.yml
     params:
       AWS_ACCESS_KEY_ID: {{aws_access_key_id}}
       AWS_SECRET_ACCESS_KEY: {{aws_secret_access_key}}

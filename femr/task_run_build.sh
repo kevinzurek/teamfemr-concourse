@@ -2,4 +2,4 @@
 
 set -ex
 
-cd femr-app && sbt clean compile
+cd git-femr-app && sbt clean compile

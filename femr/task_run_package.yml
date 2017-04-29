@@ -6,11 +6,11 @@ image_resource:
   source: {repository: kevinzurek/femr, tag: "latest"}
 
 inputs:
-- name: femr-app
-- name: resource-config
+- name: git-femr-app
+- name: s3-config
 
 outputs:
 - name: femr-dist
 
 run:
-  path: femr-app/ci/femr/task_run_package.sh
+  path: git-femr-app/ci/femr/task_run_package.sh
