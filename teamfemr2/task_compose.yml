@@ -3,15 +3,12 @@ platform: linux
 
 image_resource:
   type: docker-image
-  source: {repository: laradock/workspace, tag: "latest"}
+  source: {repository: node, tag: "latest"}
 
 inputs:
 - name: git-teamfemr2-app
+#- name: teamfemr2-build-folder
 - name: git-concourse-app
 
-outputs:
-- name: teamfemr2-build-folder
-
 run:
-  #path: git-concourse-app/teamfemr2/task_compose.sh
-  path: test.sh /bin/sh
+  path: git-concourse-app/teamfemr2/task_compose.sh
