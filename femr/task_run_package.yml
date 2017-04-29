@@ -6,6 +6,7 @@ image_resource:
   source: {repository: kevinzurek/femr, tag: "latest"}
 
 inputs:
+- name: git-femr-app
 - name: git-concourse-app
 - name: s3-config
 

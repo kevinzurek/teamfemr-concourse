@@ -9,8 +9,8 @@ resources:
 - name: git-femr-app
   type: git
   source:
-    uri: https://github.com/femr/femr.git
-    branch: master
+    uri: https://github.com/kevinzurek/femr.git
+    branch: concourse
 
 - name: git-concourse-app
   type: git
@@ -23,7 +23,7 @@ resources:
   source:
     access_key_id: {{aws_access_key_id}}
     secret_access_key: {{aws_secret_access_key}}
-    bucket: git-femr-app
+    bucket: femr-app
     versioned_file: femr.zip
 
 jobs:
