@@ -8,6 +8,7 @@ image_resource:
 inputs:
 - name: s3-config
 - name: git-concourse-app
+- name: git-femr-app
 
 run:
   path: git-concourse-app/femr/task_run_deploy.sh
