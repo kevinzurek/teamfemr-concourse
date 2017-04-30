@@ -46,15 +46,6 @@ jobs:
     file: git-concourse-app/femr/task_run_build.yml
   - task: femr-test
     file: git-concourse-app/femr/task_run_tests.yml
-#- name: test-fEMR
-#  public: true
-#  plan:
-#  - get: git-concourse-app
-#  - get: git-femr-app
-#    passed: [build-fEMR]
-#    trigger: true
-#  - task: femr-test
-#    file: git-concourse-app/femr/task_run_tests.yml
 - name: package-fEMR
   public: true
   plan:
