@@ -2,8 +2,7 @@
 
 set -ex
 
-
-echo "move files onto ec2 server"
+aws ssm send-command --instance-ids "i-0a1b188680e008bc3" --document-name "AWS-RunShellScript" --comment "TeamFemr2 deploy" --parameters commands=['cd /home/staging/git/teamfemr2; git pull origin master; composer install; npm install'] --output json
 
 #cp -a git-teamfemr2-app/. teamfemr2-build-folder/
 
