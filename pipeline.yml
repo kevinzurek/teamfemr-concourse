@@ -9,8 +9,8 @@ resources:
 - name: git-femr-app
   type: git
   source:
-    uri: https://github.com/kevinzurek/femr.git
-    branch: concourse
+    uri: https://github.com/femr/femr.git
+    branch: master
 
 - name: git-concourse-app
   type: git
