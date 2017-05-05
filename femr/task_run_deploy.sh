@@ -6,7 +6,7 @@ COMMIT=$(cd git-femr-app && git rev-parse --short HEAD)
 
 OLD_INSTANCE_ID=$(aws ec2 describe-instances --filters Name=tag:ID,Values=fEMR-demo | jq -r .Reservations[].Instances[].InstanceId)
 
-OLD_VOLUME_ID=$(aws --profile concourse ec2 describe-instances --filter Name=tag:ID,Values=fEMR-demo | jq -r .Reservations[].Instances[].BlockDeviceMappings[].Ebs.VolumeId)
+OLD_VOLUME_ID=$(aws concourse ec2 describe-instances --filter Name=tag:ID,Values=fEMR-demo | jq -r .Reservations[].Instances[].BlockDeviceMappings[].Ebs.VolumeId)
 
 aws ec2 create-tags --resources $OLD_INSTANCE_ID --tags Key=ID,Value=fEMR-demo-old
 
