@@ -31,7 +31,6 @@ jobs:
   public: true
   plan:
   - get: git-concourse-app
-    trigger: true
   - get: git-teamfemr2-app
     trigger: true
   - task: teamfemr2-deploy
